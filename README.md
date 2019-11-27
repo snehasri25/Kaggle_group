@@ -1,8 +1,8 @@
-# Kaggle_group
-Team 49
-Members - 
+# Kaggle_group.
+#Team 49
+#Members - 
 Xiaomeng Wang,
 Gabriel Barat,
-Sneha Srivastava
-Competition - income prediction
-We have used frequency encoding, label encoding and lightgbm algorithm to predict income
+Sneha Srivastava. 
+Competition name -  income prediction.
+We have used frequency encoding, label encoding and lightgbm algorithm to predict income.

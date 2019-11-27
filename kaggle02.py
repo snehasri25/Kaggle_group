@@ -4,6 +4,7 @@ import numpy as np
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import mean_absolute_error
 
 
 #loading train and test data
@@ -72,7 +73,7 @@ Y_train = data['Income'].iloc[:1048573]
 X_test_id = data['Instance'].iloc[1048574:]
 x_train,x_val,y_train,y_val = train_test_split(X_train,Y_train,test_size=0.2,random_state=1234)
 
-#choosing hyperparameters for lightgbm algorithm
+#specifying hyperparameters for lightgbm algorithm as a dictionary
 params = {
           'max_depth': 20,
           'learning_rate': 0.01,
@@ -82,17 +83,17 @@ params = {
           "verbosity": -1,
          }
 
-# training model
+# create dataset for lightgbm
 trn_data = lgb.Dataset(x_train, label=y_train)
 val_data = lgb.Dataset(x_val, label=y_val)
-# test_data = lgb.Dataset(X_test)
+# training model
 clf = lgb.train(params, trn_data, 100000, valid_sets = [trn_data, val_data], verbose_eval=1000, early_stopping_rounds=500)
 #predicting income
 pre_test_lgb = clf.predict(X_test)
 'done'
 
 #calculating mean absolute error
-from sklearn.metrics import mean_absolute_error
+
 pre_val_lgb = clf.predict(x_val)
 val_mae = mean_absolute_error(y_val,pre_val_lgb)
 val_mae
